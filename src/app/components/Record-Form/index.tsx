@@ -1,4 +1,3 @@
-// app/components/RecordForm.tsx
 'use client';
 
 import { useState } from 'react';
@@ -43,7 +42,9 @@ const RecordForm = ({ onSubmit, initialFormState }: RecordFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
+    <div className="bg-white p-6 rounded shadow-md">
+      <h2 className="text-xl font-bold mb-4">Record Form</h2>
+      
       <div className="mb-4">
         <label className="block text-gray-700 mb-2" htmlFor="title">
           Title*
@@ -87,30 +88,33 @@ const RecordForm = ({ onSubmit, initialFormState }: RecordFormProps) => {
         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
       </div>
       
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-gray-700 mb-2" htmlFor="range">
-          Range* (0-100)
+          Range* (0-100): {formData.range}
         </label>
         <input
-          type="number"
+          type="range"
           id="range"
           name="range"
           value={formData.range}
           onChange={handleInputChange}
           min="1"
           max="99"
-          className={`w-full p-2 border rounded ${errors.range ? 'border-red-500' : 'border-gray-300'}`}
+          step="1"
+          className={`w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer ${
+            errors.range ? 'border border-red-500' : ''
+          }`}
         />
         {errors.range && <p className="text-red-500 text-sm mt-1">{errors.range}</p>}
       </div>
       
       <button
-        type="submit"
+        onClick={handleSubmit}
         className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
       >
         Submit
       </button>
-    </form>
+    </div>
   );
 };
 
